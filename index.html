@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#170b35">
+  <title>Larissa, tenho uma pergunta pra vc 💜</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="stars" aria-hidden="true"></div>
+  <div class="hearts" aria-hidden="true" id="hearts"></div>
+<div class="entry-screen" id="entryScreen" role="button" tabindex="0" aria-label="Aperte para começar"><div class="entry-card"><span class="entry-heart">♡</span><p>preparei uma coisinha pra você...</p><h2>aperte para começar fofinha</h2><span class="entry-hint">♪ depois é só aproveitar esse momento comigo</span></div></div>
+
+  <header class="hero">
+    <div class="eyebrow">✦ uma cartinha feita com carinho ✦</div>
+    <h1>Larissa <span>♡</span></h1>
+    <p class="subtitle">tem uma coisa que eu quero muito te perguntar...</p>
+    <a class="scroll-cue" href="#carta">desce um pouquinho <span>↓</span></a>
+  </header>
+
+  <main>
+    <section class="gallery section" aria-label="Nossas fotos">
+      <div class="section-heading">
+        <span class="tiny-heart">♥</span>
+        <h2>Nosso cantinho</h2>
+        <p>Cinco fotinhos pra guardar um pouquinho da nossa história 💜</p>
+      </div>
+      <div class="photo-grid">
+        <figure class="photo-card tilt-left">
+          <img src="assets/foto1.png" alt="Avatar do casal com roupas vermelhas inspiradas em Carros">
+          <figcaption>nossa vibe ❤️</figcaption>
+        </figure>
+        <figure class="photo-card featured">
+          <img src="assets/foto2.png" alt="Avatares de cabelo preto juntinhos">
+          <figcaption>eu + vc ♡</figcaption>
+        </figure>
+        <figure class="photo-card tilt-right">
+          <img src="assets/foto3.png" alt="Casal de avatares abraçado em um quarto com luzes roxas">
+          <figcaption>meu lugar favorito</figcaption>
+        </figure>
+        <figure class="photo-card">
+          <img src="assets/foto4.png" alt="Casal de avatares de mãos dadas vendo o pôr do sol no mar">
+          <figcaption>com você, qualquer pôr do sol é melhor 🌅</figcaption>
+        </figure>
+        <figure class="photo-card">
+          <img src="assets/foto5.png" alt="Casal de avatares abraçado diante das luzes da cidade à noite">
+          <figcaption>meu abraço favorito ♡</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="letter section" id="carta">
+      <div class="letter-top">✉ uma mensagem pra vc</div>
+      <h2>Larissa, deixa eu te falar…</h2>
+      <div class="letter-copy">
+        <p>Larissa, eu sei que a gente se conhece há pouquinho tempo — faz menos de uma semana —, mas, mesmo assim, você já conseguiu despertar algo muito especial em mim. Pode parecer cedo, mas eu não quero esconder o que estou sentindo: eu gosto de você e quero muito descobrir onde isso pode chegar.</p>
+        <p>Quero te levar pra sair, viver momentos incríveis ao seu lado e, quando chegar a hora, transformar toda essa vontade de estar junto em momentos também fora da tela. E quem sabe construir nossa família: eu, você e o Duke KKKKK. Gosto da sua voz, da sua risada, das suas brincadeiras e até das suas palhaçadas. Você consegue deixar meu dia mais leve sem nem perceber.</p>
+        <p>E sim, eu quero mais calls com você… porque ser abandonado assim não dá, né? KKKKK. Brincadeiras à parte, cada conversa nossa me dá ainda mais vontade de te conhecer, cuidar de você e fazer parte dos seus dias.</p>
+        <p class="highlight">Não quero apressar nada nem criar expectativas que a gente ainda não viveu. Quero que tudo aconteça no nosso tempo, com sinceridade, carinho, respeito e muita vontade dos dois. Só sei que quero tentar de verdade — e espero que você também queira. 💜</p>
+      </div>
+      <div class="signature">com carinho, de alguém que está muito feliz por ter conhecido você ♡</div>
+    </section>
+
+    <section class="ask section">
+      <div class="sparkle">✧ ✦ ✧</div>
+      <p class="ask-pre">e agora vem a pergunta mais importante...</p>
+      <h2>Você aceita começar essa história comigo,<br><span>e quem sabe namorar comigo?</span></h2>
+      <p class="ask-note">Quero te fazer sorrir, estar pertinho de você e construir algo bonito, tanto na web quanto pessoalmente. Sem pressa, mas com muito carinho. 💗</p>
+      <p class="ask-note">E não precisa responder por pressão. Quero que sua resposta seja de coração. ♡</p>\n      <div class="buttons">
+        <button class="yes-button" id="yesBtn">SIMMM! 💜</button>
+        <button class="maybe-button" id="maybeBtn">quero conversar 🥺</button>
+      </div>
+      <p class="response" id="response" role="status" aria-live="polite"></p>
+      <div class="forever">feito com carinho • vc + eu • quem sabe Duke também 🐾</div>
+    </section>
+
+    <section class="music section">
+      <div class="music-icon">♫</div>
+      <h2>Uma trilha sonora pra nós</h2>
+      <p>Escolhi essas três músicas pensando em você. Dá o play e aproveita essa cartinha. 💜</p>
+      <div class="playlist" aria-label="Playlist com três músicas">
+        <button class="track active" type="button" data-track="0">♫ Música 1</button>
+        <button class="track" type="button" data-track="1">♫ Música 2</button>
+        <button class="track" type="button" data-track="2">♫ Música 3</button>
+      </div>
+      <audio id="audioPlayer" controls autoplay preload="auto" playsinline>
+        <source src="assets/musica1.mp3" type="audio/mpeg">
+        Seu navegador não suporta áudio.
+      </audio>
+      <button class="start-music" id="startMusic" type="button">▶ Toque aqui para ouvir as músicas</button>
+      <p class="music-tip" id="musicTip">A playlist toca as três músicas em sequência. Se o navegador bloquear a reprodução automática, é só tocar no botão acima. ♡</p>
+    </section>
+  </main>
+
+  <footer>feito especialmente pra Larissa <span>♥</span></footer>
+
+  <div class="modal" id="loveModal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-hearts">💜 💗 💜</div>
+      <h2>AAAAA, sério?!</h2>
+      <p>Vc acabou de deixar meu dia muito mais feliz! Que seja o começo de uma história linda pra nois. 🥹</p>
+      <button id="closeModal">fechar com um abraço ♡</button>
+    </div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
