@@ -36,62 +36,88 @@ modal.addEventListener('click', e => {
   }
 });
 
-// Playlist fixa com as três músicas já incluídas no site.
+// Playlist personalizada com controles próprios.
 const tracks = [
-  'assets/musica1.mp3',
-  'assets/musica2.mp3',
-  'assets/musica3.mp3'
+  { src: 'assets/musica1.mp3', title: 'Música 1' },
+  { src: 'assets/musica2.mp3', title: 'Música 2' },
+  { src: 'assets/musica3.mp3', title: 'Música 3' }
 ];
 const player = document.getElementById('audioPlayer');
-const startMusic = document.getElementById('startMusic');
 const musicTip = document.getElementById('musicTip');
 const trackButtons = [...document.querySelectorAll('.track')];
+const trackTitle = document.getElementById('trackTitle');
+const playPause = document.getElementById('playPause');
+const prevTrack = document.getElementById('prevTrack');
+const nextTrack = document.getElementById('nextTrack');
+const progressBar = document.getElementById('progressBar');
+const volumeBar = document.getElementById('volumeBar');
+const currentTimeLabel = document.getElementById('currentTime');
+const durationLabel = document.getElementById('duration');
 let currentTrack = 0;
 
+function formatTime(seconds) {
+  if (!Number.isFinite(seconds)) return '0:00';
+  const mins = Math.floor(seconds / 60);
+  const secs = Math.floor(seconds % 60).toString().padStart(2, '0');
+  return `${mins}:${secs}`;
+}
 function updatePlaylist() {
+  trackTitle.textContent = tracks[currentTrack].title;
   trackButtons.forEach((button, index) => {
     button.classList.toggle('active', index === currentTrack);
     button.setAttribute('aria-pressed', String(index === currentTrack));
   });
 }
-
 async function playTrack(index) {
   currentTrack = (index + tracks.length) % tracks.length;
-  player.src = tracks[currentTrack];
+  player.src = tracks[currentTrack].src;
   player.load();
   updatePlaylist();
   try {
     await player.play();
-    startMusic.classList.remove('visible');
     musicTip.textContent = 'Tocando para você. As músicas seguem em sequência. 💜';
   } catch (error) {
-    startMusic.classList.add('visible');
-    musicTip.textContent = 'Seu navegador bloqueou o início automático. Toque no botão para começar a playlist. ♡';
+    musicTip.textContent = 'Toque no botão central para começar a ouvir. ♡';
   }
 }
-
-trackButtons.forEach(button => {
-  button.addEventListener('click', () => playTrack(Number(button.dataset.track)));
-});
-
-player.addEventListener('ended', () => {
-  if (currentTrack < tracks.length - 1) {
-    playTrack(currentTrack + 1);
-  } else {
-    currentTrack = 0;
-    updatePlaylist();
+function togglePlayback() {
+  if (player.paused) {
+    if (!player.src) player.src = tracks[currentTrack].src;
+    player.play().catch(() => musicTip.textContent = 'Não foi possível iniciar o áudio. Tente novamente.');
+  } else player.pause();
+}
+player.addEventListener('play', () => { playPause.textContent = 'Ⅱ'; playPause.setAttribute('aria-label','Pausar'); });
+player.addEventListener('pause', () => { playPause.textContent = '▶'; playPause.setAttribute('aria-label','Reproduzir'); });
+player.addEventListener('timeupdate', () => {
+  if (Number.isFinite(player.duration) && player.duration > 0) {
+    progressBar.value = (player.currentTime / player.duration) * 100;
+    currentTimeLabel.textContent = formatTime(player.currentTime);
+    durationLabel.textContent = formatTime(player.duration);
   }
 });
+player.addEventListener('loadedmetadata', () => { durationLabel.textContent = formatTime(player.duration); });
+progressBar.addEventListener('input', () => {
+  if (Number.isFinite(player.duration)) player.currentTime = (Number(progressBar.value) / 100) * player.duration;
+});
+volumeBar.addEventListener('input', () => { player.volume = Number(volumeBar.value); });
+player.volume = Number(volumeBar.value);
+playPause.addEventListener('click', togglePlayback);
+prevTrack.addEventListener('click', () => playTrack(currentTrack - 1));
+nextTrack.addEventListener('click', () => playTrack(currentTrack + 1));
+trackButtons.forEach(button => button.addEventListener('click', () => playTrack(Number(button.dataset.track))));
+player.addEventListener('ended', () => {
+  if (currentTrack < tracks.length - 1) playTrack(currentTrack + 1);
+  else { player.currentTime = 0; player.pause(); }
+});
+updatePlaylist();
 
-startMusic.addEventListener('click', () => playTrack(currentTrack));
-player.addEventListener('play', () => startMusic.classList.remove('visible'));
-
-// O toque na tela inicial libera a música e revela o site.
+// A tela inicial libera a rolagem e inicia a primeira música somente após o clique.
 const entryScreen = document.getElementById('entryScreen');
 async function enterSite() {
   if (!entryScreen || entryScreen.classList.contains('leaving')) return;
   entryScreen.classList.add('leaving');
   document.body.classList.add('site-started');
+  document.documentElement.classList.add('site-ready');
   await playTrack(0);
   setTimeout(() => entryScreen.remove(), 750);
 }
